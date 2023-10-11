@@ -10,10 +10,22 @@
     <h1>Umfrage</h1>
     <button type="button" onclick="btnGetData()">Click Me Please!</button>
 
+    <br /> <br />
+
+    <label for="antwort">Ich bin eine Frage?</label>
+    <input type="text" id="antwort" name="antwort">
+    <button type="button" onclick="btnPostData()">Antwort speichern!</button>
+
     <script>
         function btnGetData() {
             var data = getData();
-        }
+            //data ist ein string array mit den Antworten
+        };
+
+        function btnPostData() {
+            var antworten = $("#antwort").value;
+            postData(value);
+        };
     </script>
 
 </body>
