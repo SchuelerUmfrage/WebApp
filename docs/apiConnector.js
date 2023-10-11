@@ -13,7 +13,7 @@
         console.log(response);
         return response;
       });
-}
+};
 
 function postData(antworten) {
     var settings = {
@@ -30,5 +30,5 @@ function postData(antworten) {
     $.ajax(settings).done(function (response) {
         console.log(response);
     });
-}
+};
   
