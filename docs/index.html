@@ -14,6 +14,8 @@
 
     <label for="antwort">Ich bin eine Frage?</label>
     <input type="text" id="antwort" name="antwort">
+    <label for="antwort2">Ich bin noch eine Frage?</label>
+    <input type="text" id="antwort2" name="antwort2">
     <button type="button" onclick="btnPostData()">Antwort speichern!</button>
 
     <script>
@@ -23,7 +25,11 @@
         };
 
         function btnPostData() {
-            var antworten = $("#antwort").val();
+            var antwort1 = $("#antwort1").val();
+            var antwort2 = $("#antwort2").val();
+
+            const antworten = [antwort1, antwort2];
+            
             postData(antworten);
         };
     </script>
