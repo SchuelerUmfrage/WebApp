@@ -458,7 +458,8 @@
             ajaxCall(settings).done(response =>
             {
                 console.log(response);
-                generateCSV(data);
+                generateCSV(response);
+                closeModal();
             })
             .fail(esIstEinFehlerAufgetreten())
             .always(hideSpinner());
