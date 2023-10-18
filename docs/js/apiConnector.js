@@ -7,9 +7,6 @@ function getData(email) {
         "url": "https://niklasdeegapi.azurewebsites.net/ProjectM?email=" + email,
         "method": "GET",
         "timeout": 0,
-        "headers": {
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
-        },
     };
 
     return settings;
@@ -25,8 +22,7 @@ function postData(email, antworten) {
         "method": "POST",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/json",
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
+            "Content-Type": "application/json"
         },
         "data": JSON.stringify({
             "email": email,
@@ -63,9 +59,6 @@ function deleteAllAnswers(password) {
         "url": "https://niklasdeegapi.azurewebsites.net/ProjectM?password=" + password,
         "method": "DELETE",
         "timeout": 0,
-        "headers": {
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
-        },
     };
 
     return settings;
@@ -79,9 +72,6 @@ function getAllSurveys(password, error, success) {
         "url": "https://niklasdeegapi.azurewebsites.net/ProjectM/GetAllSurveys?password=" + password,
         "method": "GET",
         "timeout": 0,
-        "headers": {
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
-        },
     };
 
     return settings;
@@ -97,8 +87,7 @@ function postEmail(email) {
         "method": "POST",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/json",
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
+            "Content-Type": "application/json"
         },
         "data": JSON.stringify(email),
     };
@@ -115,8 +104,7 @@ function verifyEmail(email, code) {
         "method": "POST",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/json",
-            "Cookie": "ARRAffinity=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17; ARRAffinitySameSite=22a7daa836b64a8ce56c907737553d08297ff2e76cd06a1f52c29956b9a85c17"
+            "Content-Type": "application/json"
         },
         "data": JSON.stringify(code),
     };
