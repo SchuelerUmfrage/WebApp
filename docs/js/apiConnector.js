@@ -67,7 +67,7 @@ function deleteAllAnswers(password) {
 //Gibt alle Antworten aus der DB im Format eines Arrays zurück. Jeder Array-Eintrag sind die Antworten einer Person mit Semikolon getrennt (Also sieht das Array ungefähr so aus: [{"Antwort1";"Antwort2";"usw"}, {"Antwort1";"Antwort2";"usw"}])
 //Es muss das entsprechende Passwort mitgegeben werden
 //Beim Erfolg wird "success" returned
-function getAllSurveys(password, error, success) {
+function getAllSurveys(password) {
     var settings = {
         "url": "https://niklasdeegapi.azurewebsites.net/ProjectM/GetAllSurveys?password=" + password,
         "method": "GET",

@@ -257,6 +257,50 @@
             </div>
         </div>
     </section>
+
+    <!-- Registrieren -->
+    <section class="page-section bg-light" id="registrieren">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Registrieren</h2>
+                <h3 class="section-subheading text-muted">Bitte nur mit einer Email registrieren.</h3>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <form method="post">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <label class="py-2" for="validate-email">Email-Adresse:</label>
+                                <div class="input-group py-2" data-validate="email">
+                                    <input type="text" class="form-control" name="validate-email" id="validate-email"
+                                        placeholder="Email" required>
+                                    <span class="input-group-addon danger"><span
+                                            class="glyphicon glyphicon-remove"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-2 text-center">
+                            <button type="submit" class="btn btn-primary col-xs-12" disabled>Verifizierungscode senden</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="input-group mb-3">
+
+                <input id="code" name="code" type="text" class="form-control"
+                    placeholder="1234">
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="btnVerify()">Verifizieren</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact-->
     <section class="page-section" id="contact">
         <div class="container">
@@ -378,11 +422,12 @@
                 <div class="modal-body">
                     <div class="spinner-border" role="status" id="spinnerModal">
                         <span class="visually-hidden">Loading...</span>
-                      </div>
+                    </div>
                     <p id="modalText"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -448,6 +493,43 @@
 
     <script>
 
+        $(document).ready(function () {
+            $('.input-group input[required]').on('keyup change', function () {
+                var $form = $(this).closest('form'),
+                    $group = $(this).closest('.input-group'),
+                    $addon = $group.find('.input-group-addon'),
+                    $icon = $addon.find('span'),
+                    state = false;
+
+                if (!$group.data('validate')) {
+                    state = $(this).val() ? true : false;
+                } else if ($group.data('validate') == "email") {
+                    state = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).val())
+                }
+
+                if (state) {
+                    $addon.removeClass('danger');
+                    $addon.addClass('success');
+                    $icon.attr('class', 'glyphicon glyphicon-ok');
+                } else {
+                    $addon.removeClass('success');
+                    $addon.addClass('danger');
+                    $icon.attr('class', 'glyphicon glyphicon-remove');
+                }
+
+                if ($form.find('.input-group-addon.danger').length == 0) {
+                    $form.find('[type="submit"]').prop('disabled', false);
+                } else {
+                    $form.find('[type="submit"]').prop('disabled', true);
+                }
+            });
+
+            $('.input-group input[required], .input-group textarea[required], .input-group select[required]').trigger('change');
+
+
+        });
+
+
         function btnGetAllData() {
 
             showModal();
@@ -455,14 +537,13 @@
 
             var settings = getAllSurveys(password);
 
-            ajaxCall(settings).done(response =>
-            {
+            ajaxCall(settings).done(response => {
+                hideSpinner();
                 console.log(response);
                 generateCSV(response);
                 closeModal();
             })
-            .fail(esIstEinFehlerAufgetreten())
-            .always(hideSpinner());
+                .fail(esIstEinFehlerAufgetreten());
 
         };
 
@@ -473,13 +554,12 @@
 
             var settings = deleteAllAnswers(password);
 
-            ajaxCall(settings).done(response =>
-            {
+            ajaxCall(settings).done(response => {
+                hideSpinner();
                 console.log(response);
                 changeModalText(response);
             })
-            .fail(esIstEinFehlerAufgetreten())
-            .always(hideSpinner());
+                .fail(esIstEinFehlerAufgetreten());
 
         };
 
@@ -502,37 +582,35 @@
             let antworten = [antwort1, antwort2, antwort3, antwort4, antwort5, antwort6, antwort7, antwort8, antwort9, antwort10];
 
             var settings = postData(email, antworten);
-            
-            ajaxCall(settings).done(response =>
-            {
+
+            ajaxCall(settings).done(response => {
+                hideSpinner();
                 console.log(response);
                 changeModalText(response);
             })
-            .fail(esIstEinFehlerAufgetreten())
-            .always(hideSpinner());
+                .fail(esIstEinFehlerAufgetreten());
         };
 
         function showModal() {
-            $("#spinnerModal").show();            
+            changeModalText('')
+            $("#spinnerModal").show();
             $('#modal').modal('show');
         };
 
-        function closeModal(){
+        function closeModal() {
             $('#modal').modal('hide');
         }
 
-        function changeModalText(text)
-        {
+        function changeModalText(text) {
             $('#modalText').text(text);
         }
 
-        function esIstEinFehlerAufgetreten()
-        {
+        function esIstEinFehlerAufgetreten() {
+            hideSpinner();
             changeModalText("Es ist ein Fehler aufgetreten. Bitte versuche es später noch einmal");
         }
 
-        function hideSpinner()
-        {
+        function hideSpinner() {
             $("#spinnerModal").hide();
         }
 
