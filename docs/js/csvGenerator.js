@@ -4,8 +4,7 @@
 function generateCSV(antworten) {
     
     let csvContent = "data:text/csv;charset=utf-8,";
-        antworten.forEach(function(rowArray) {
-            let row = rowArray;
+        antworten.forEach(function(row) {
         csvContent += row + "\r\n";
         });
     var encodedUri = encodeURI(csvContent);
